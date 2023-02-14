@@ -1,0 +1,267 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{minted}     
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{makecell}
+\usepackage{hyperref}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName\ \ \hmwkAuthorId}
+%\chead{\hmwkClassCode (\hmwkClassInstructor): \hmwkTitleShort}
+\chead{\hmwkClassCode :\ \hmwkTitleShort}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{9}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Project\ \#1: Shortest Path}
+\newcommand{\hmwkTitleShort}{Project\ \#1}
+\newcommand{\hmwkDueDate}{Tuesday, February 14, 2023}
+\newcommand{\hmwkDueTime}{11:59 PM}
+\newcommand{\hmwkClass}{CSCI6511: Artificial Intelligence}
+\newcommand{\hmwkClassCode}{CSCI6511}
+%\newcommand{\hmwkClassTime}{Lecture 1}
+\newcommand{\hmwkClassInstructor}{Professor Amrinder Arora}
+\newcommand{\hmwkAuthorName}{Yikai Zhang}
+\newcommand{\hmwkAuthorId}{GWid: G25867739}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass}}\\
+    \textmd{\textbf{\hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at \hmwkDueTime}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}}
+    \vspace{3in}
+}
+
+\author{
+    \textbf{\hmwkAuthorName}\\
+    \textbf{\hmwkAuthorId}
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+%\maketitle
+
+%\pagebreak
+
+%\setcounter{homeworkProblemCounter}{9}
+
+\begin{homeworkProblem}[1]
+    \textbf{1. Implementation}
+
+    
+
+    \textbf{2. Code}
+
+    
+
+    \textbf{3. Experimental Analysis}
+
+    \textit{3.1 Program Listing}
+
+    I use Python to implement the algorithm and ran 3 test cases found on the Internet. 
+
+    Used heapq library to generate min heap. Defined a new class, Huffman\_Node, with frequency, key, left\_child, right\_child, and code. Override "\(<\)" so that comparison between two nodes = comparison between frequency of nodes (for min\_heap). Input data is defined as a String. huffman\_coding(data) counts symbols, generates leaf nodes, uses Greedy to generate parent nodes until reach a root node, then call the recursion function to apply huffman code top-down. 
+
+    \begin{lstlisting}[language=Python]
+import heapq
+
+# define a tree node in huffman tree
+class Huffman_Node:
+    def __init__(self,freq,key=None,left_child=None,right_child=None,code=''):
+        self.freq = freq
+        self.key = key
+        self.left_child = left_child
+        self.right_child = right_child
+        self.code = code
+    # for Min-Heap, sort by Huffman_Node.freq
+    def __lt__(self, other):
+        return self.freq < other.freq
+
+# A recursion function that apply huffman code top-down
+def apply_code(node, huff_code_table, code=''):
+    code += node.code
+    if node.left_child:
+        apply_code(node.left_child, huff_code_table, code)
+        apply_code(node.right_child, huff_code_table, code)
+    else:
+        huff_code_table[node.key] = code
+    return
+
+# the input data is String
+def huffman_coding(data):    
+    char_freq_dict = {}
+    # use min heap so that root is least frequent
+    # use with Huffman_Node.__lt__
+    min_heap = []
+    huff_code_table = {}
+
+    # count frequency of each charactor
+    for i in data:
+        if i in char_freq_dict:
+            char_freq_dict[i] += 1
+        else:
+            char_freq_dict[i] = 1
+
+    # generate leaf nodes of Huffman tree with chars
+    for char,freq in char_freq_dict.items():
+        node = Huffman_Node(freq, key=char)
+        heapq.heappush(min_heap, node)
+
+    # create the whole Huffman tree
+    while len(min_heap) > 1:
+        # fetch 2 nodes from min_heap with least freq
+        node0 = heapq.heappop(min_heap)
+        node1 = heapq.heappop(min_heap)
+        node0.code,node1.code = '0','1'
+        parent_node=Huffman_Node(node0.freq+node1.freq,
+            left_child=node0,right_child=node1)
+        heapq.heappush(min_heap, parent_node)
+
+    apply_code(heapq.heappop(min_heap), huff_code_table)
+
+    return huff_code_table
+    \end{lstlisting}
+
+    \textit{3.2 Test case \& Output Data}
+
+    \begin{table}[ht]
+        \centering
+        \begin{tabular}{c | c | c}
+            \text{Test case}
+            & \text{Test Output}
+            & \text{Correct\&Meet Requriement?}
+            \\
+            \hline
+            \makecell[c]{'a'*5+'b'*9+'c'*12+\\'d'*13+'e'*16+'f'*45} & \makecell[c]{'f':'0','c':'100','d':'101',\\'a':'1100','b':'1101','e':'111'} & \textbf{Yes} \\
+            \hline
+            \text{'mississippi'} & 'i':'0','m':'100','p':'101','s':'11' & \textbf{Yes}\\
+            \hline
+            \makecell[c]{'abccdddeeeee'+'f'*8+\\'g'*13+'h'*21} & \makecell[c]{'h':'0','g':'10','f':'110','e':'1110',\\'d':'11110','c':'111110','a':'1111110','b': '1111111'} & \textbf{Yes}\\
+        \end{tabular}
+    \end{table}
+
+    \textit{3.3 Time Complexity}
+
+    The time complexity of the Huffman algorithm is \(O(n\log n)\). The min heap takes \(O(\log n)\) time to push a new value, and it happens \(2n-1\) time. The apply code top-down operation takes \(O(n)\) time, and we don't need to count frequency if given symbols and frequency as input. Thus, the time complexity is \(O((2n-1)\log n + n) = O(n\log n)\). 
+
+~
+
+    \textbf{4. Conclusions}
+
+    My code implemented the algorithm and passed the test cases from the Internet. The Huffman code generated by my code meets the requirement a. and b., it is a proper Huffman coding program. 
+
+\end{homeworkProblem}
+
+\end{document}
