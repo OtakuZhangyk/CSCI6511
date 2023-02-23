@@ -169,7 +169,7 @@ def a_star(capacities, target):
     while heap:
         # get the neighbor with least f(n) as current state
         (fn, cost, state) = heapq.heappop(heap)
-        #print('-----------',state)
+        print(cost,state)
 
         # ensure the current state is never visited
         if state in visited:
@@ -219,11 +219,12 @@ def test(cases):
             print(f'Test {i} failed: \n\tcapacities = {testcases[i][0]}, target = {target}, answer = {ans}, correct answer = {check}')
 
 def main():
-    '''
+    
     # test
     cases = [0, 1, 2, 3, 4]
     test(cases)
-    '''
+    return
+    
 
     test_path = './tests/'
     txt_files = [f for f in os.listdir(test_path) if f.endswith('.txt')]
