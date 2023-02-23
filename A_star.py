@@ -211,8 +211,10 @@ def test(cases):
         capacities = sorted(capacities)
         capacities += [-1]
 
+        # solve water jug problem using A*
         ans = a_star(capacities, target)
 
+        # check answer
         if ans == check:
             print(f'Test {i} passed: \n\tcapacities = {testcases[i][0]}, target = {target}, answer = {check}')
         else:
