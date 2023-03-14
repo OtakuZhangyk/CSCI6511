@@ -169,7 +169,7 @@ def a_star(capacities, target):
     while heap:
         # get the neighbor with least f(n) as current state
         (fn, cost, state) = heapq.heappop(heap)
-        print(cost,state)
+        #print(cost,state)
 
         # ensure the current state is never visited
         if state in visited:
@@ -201,7 +201,7 @@ def test(cases):
     testcases.append(([2,5,6,72],143,7))
     testcases.append(([3,6],2,-1))
     testcases.append(([2],143,-1))
-    testcases.append(([2,3,5,19,121,852],11443,36))
+    testcases.append(([1,90,200],20,-1))
     for i in cases:
         capacities = testcases[i][0]
         target = testcases[i][1]
