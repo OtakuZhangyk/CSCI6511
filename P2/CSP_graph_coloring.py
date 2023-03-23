@@ -29,6 +29,7 @@ class Constraint:
 # Define a function to read the graph from a file
 def read_graph(filename):
     # store loaded data in a dict
+    is_start_from_0 = False
     graph = {}
     with open(filename, 'r') as file:
         for line in file:
@@ -46,6 +47,8 @@ def read_graph(filename):
                         graph[v2] = []
                     graph[v1].append(v2)
                     graph[v2].append(v1)
+                    if int(v1) == 0 or int(v2) == 0:
+                        is_start_from_0 = True
     # get all vertexs
     variables = []
     for v in graph.keys():
@@ -55,7 +58,10 @@ def read_graph(filename):
     for v1 in graph.keys():
         for v2 in graph[v1]:
             if v1 < v2:
-                constraints.append(Constraint(variables[v1-1], variables[v2-1]))
+                if is_start_from_0:
+                    constraints.append(Constraint(variables[v1], variables[v2]))
+                else:
+                    constraints.append(Constraint(variables[v1-1], variables[v2-1]))
     return variables, constraints
 
 # Define a function to perform AC3 constraint propagation
